@@ -5,7 +5,9 @@ AutoHtml.add_filter(:youtube).with(:width => 390, :height => 250, :frameborder =
     width = options[:width]
     height = options[:height]
     frameborder = options[:frameborder]
-    %{<iframe class="youtube-player" type="text/html" width="#{width}" height="#{height}" src="http://www.youtube.com/embed/#{youtube_id}" frameborder="#{frameborder}">
+    query_string = "?wmode=#{options[:wmode]}" if options[:wmode]
+
+    %{<iframe class="youtube-player" type="text/html" width="#{width}" height="#{height}" src="http://www.youtube.com/embed/#{youtube_id}#{query_string}" frameborder="#{frameborder}">
 </iframe>}
   end
 end
