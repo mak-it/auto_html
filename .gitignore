@@ -1,2 +1,2 @@
-test.sqlite3
-TODO
+*.sqlite3
+nbproject/

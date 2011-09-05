@@ -1,5 +1,5 @@
 AutoHtml.add_filter(:youtube).with(:width => 390, :height => 250, :frameborder => 0) do |text, options|
-  regex = /http:\/\/(www.)?youtube\.com\/watch\?v=([A-Za-z0-9._%-]*)(\&\S+)?/
+  regex = /http:\/\/(www.)?youtube\.com\/watch\?v=([A-Za-z0-9._%-]*)(\&[^< ]+)?(\s+)?/
   text.gsub(regex) do
     youtube_id = $2
     width = options[:width]

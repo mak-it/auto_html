@@ -32,4 +32,15 @@ class YouTubeTest < Test::Unit::TestCase
 </iframe>', result
   end
 
+  def test_transform_without_html_truncate
+    result = auto_html('http://www.youtube.com/watch?v=BwNrmYRiX_o<p>My HTML</p>') { youtube }
+    assert_equal '<iframe class="youtube-player" type="text/html" width="390" height="250" src="http://www.youtube.com/embed/BwNrmYRiX_o" frameborder="0">
+</iframe><p>My HTML</p>', result
+  end
+
+  def test_transform_without_continious_text_truncate
+    result = auto_html('http://www.youtube.com/watch?v=BwNrmYRiX_o My Text') { youtube }
+    assert_equal '<iframe class="youtube-player" type="text/html" width="390" height="250" src="http://www.youtube.com/embed/BwNrmYRiX_o" frameborder="0">
+</iframe>My Text', result
+  end
 end
