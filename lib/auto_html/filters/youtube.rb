@@ -8,7 +8,8 @@ AutoHtml.add_filter(:youtube).with(:width => 390, :height => 250, :frameborder =
     query_string = "?wmode=#{options[:wmode]}" if options[:wmode]
     if options[:thumbnail]
       img = %{<img src="http://img.youtube.com/vi/#{youtube_id}/default.jpg" alt="#{youtube_id}"/>}
-      thumbnail = %{<a class="youtube-thumbnail" href="#open_video">#{img}</a>}
+      icon = %{<span class="youtube-icon"></span>}
+      thumbnail = %{<a class="youtube-thumbnail" href="#open_video">#{img}#{icon}</a>}
     end
     %{#{thumbnail}<iframe class="youtube-player" type="text/html" width="#{width}" height="#{height}" src="http://www.youtube.com/embed/#{youtube_id}#{query_string}" frameborder="#{frameborder}">
 </iframe>}
