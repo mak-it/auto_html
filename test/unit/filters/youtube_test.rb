@@ -43,4 +43,10 @@ class YouTubeTest < Test::Unit::TestCase
     assert_equal '<iframe class="youtube-player" type="text/html" width="390" height="250" src="http://www.youtube.com/embed/BwNrmYRiX_o" frameborder="0">
 </iframe>My Text', result
   end
+
+  def test_transform_with_thumbnail
+    result = auto_html('http://www.youtube.com/watch?v=BwNrmYRiX_o') { youtube({:thumbnail => true}) }
+    assert_equal '<a class="youtube-thumbnail" href="#open_video"><img src="http://img.youtube.com/vi/BwNrmYRiX_o/default.jpg" alt="BwNrmYRiX_o"/></a><iframe class="youtube-player" type="text/html" width="390" height="250" src="http://www.youtube.com/embed/BwNrmYRiX_o" frameborder="0">
+</iframe>', result
+  end
 end
