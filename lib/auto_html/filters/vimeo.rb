@@ -10,7 +10,11 @@ AutoHtml.add_filter(:vimeo).with(:width => 440, :height => 248, :show_title => f
     frameborder     = options[:frameborder] || 0
     query_string_variables = [show_title, show_byline, show_portrait, wmode].compact.join("&")
     query_string    = "?" + query_string_variables unless query_string_variables.empty?
-
-    %{<iframe src="http://player.vimeo.com/video/#{vimeo_id}#{query_string}" width="#{width}" height="#{height}" frameborder="#{frameborder}"></iframe>}
+    if options[:thumbnail]
+      img = %{<img src="#{options[:default_thumbnail]}" alt="#{vimeo_id}" data-url="http://vimeo.com/api/v2/video/#{vimeo_id}.json" />}
+      icon = %{<span class="viemo-icon"></span>}
+      thumbnail = %{<a class="viemo-thumbnail" href="#open_video">#{img}#{icon}</a>}
+    end
+    %{#{thumbnail}<iframe src="http://player.vimeo.com/video/#{vimeo_id}#{query_string}" width="#{width}" height="#{height}" frameborder="#{frameborder}"></iframe>}
   end
 end
