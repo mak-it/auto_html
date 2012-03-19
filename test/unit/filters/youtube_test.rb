@@ -34,19 +34,17 @@ class YouTubeTest < Test::Unit::TestCase
 
   def test_transform_without_html_truncate
     result = auto_html('http://www.youtube.com/watch?v=BwNrmYRiX_o<p>My HTML</p>') { youtube }
-    assert_equal '<iframe class="youtube-player" type="text/html" width="390" height="250" src="http://www.youtube.com/embed/BwNrmYRiX_o" frameborder="0">
-</iframe><p>My HTML</p>', result
+    assert_equal '<iframe width="420" height="315" src="http://www.youtube.com/embed/BwNrmYRiX_o" frameborder="0" allowfullscreen></iframe><p>My HTML</p>', result
   end
 
   def test_transform_without_continious_text_truncate
     result = auto_html('http://www.youtube.com/watch?v=BwNrmYRiX_o My Text') { youtube }
-    assert_equal '<iframe class="youtube-player" type="text/html" width="390" height="250" src="http://www.youtube.com/embed/BwNrmYRiX_o" frameborder="0">
-</iframe>My Text', result
+    assert_equal '<iframe width="420" height="315" src="http://www.youtube.com/embed/BwNrmYRiX_o" frameborder="0" allowfullscreen></iframe> My Text', result
   end
 
   def test_transform_with_thumbnail
     result = auto_html('http://www.youtube.com/watch?v=BwNrmYRiX_o') { youtube({:thumbnail => true}) }
-    assert_equal '<a class="youtube-thumbnail" href="#open_video"><img src="http://img.youtube.com/vi/BwNrmYRiX_o/default.jpg" alt="BwNrmYRiX_o"/><span class="youtube-icon"></span></a><iframe class="youtube-player" type="text/html" width="390" height="250" src="http://www.youtube.com/embed/BwNrmYRiX_o" frameborder="0"></iframe>', result
+    assert_equal '<a class="youtube-thumbnail" href="#open_video"><img src="http://img.youtube.com/vi/BwNrmYRiX_o/default.jpg" alt="BwNrmYRiX_o"/><span class="youtube-icon"></span></a><iframe width="420" height="315" src="http://www.youtube.com/embed/BwNrmYRiX_o" frameborder="0" allowfullscreen></iframe>', result
   end
 
   def test_transform_with_short_url

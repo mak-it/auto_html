@@ -49,7 +49,7 @@ class VimeoTest < Test::Unit::TestCase
 
   def test_transform_with_thumbnail
     result = auto_html('http://vimeo.com/3300155#skirt') { vimeo(:thumbnail => true, :default_thumbnail => "/images/video_thum.png") }
-    assert_equal '<a class="viemo-thumbnail" href="#open_video"><img src="/images/video_thum.png" alt="3300155" data-url="http://vimeo.com/api/v2/video/3300155.json" /><span class="viemo-icon"></span></a><iframe src="http://player.vimeo.com/video/3300155?title=0&byline=0&portrait=0" width="440" height="248" frameborder="0"></iframe>', result
+    assert_equal '<a class="vimeo-thumbnail" href="#open_video"><img src="/images/video_thum.png" alt="3300155" data-url="http://vimeo.com/api/v2/video/3300155.json" /><span class="vimeo-icon"></span></a><iframe src="http://player.vimeo.com/video/3300155?title=0&byline=0&portrait=0" width="440" height="248" frameborder="0"></iframe>', result
   end
 
 end
