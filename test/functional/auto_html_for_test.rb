@@ -6,7 +6,7 @@ class Article < ActiveRecord::Base
     html_escape
     youtube(:width => 400, :height => 250)
     image
-    link(:target => "_blank", :rel => "nofollow")
+    link(:target => "_blank")
     simple_format
   end
 end
@@ -17,6 +17,12 @@ class AutoHtmlForTest < Test::Unit::TestCase
   def test_transform_on_initialization
     @article = Article.new(:body => 'Yo!')
     assert_equal '<p>Yo!</p>', @article.body_html
+  end
+
+  def test_html_safe
+    return unless "".respond_to?(:html_safe?)
+    @article = Article.new(:body => 'Yo!')
+    assert @article.body_html.html_safe?
   end
 
   def test_transform_after_save
@@ -35,6 +41,6 @@ class AutoHtmlForTest < Test::Unit::TestCase
     @article = Article.create!(:body => 'Yo!')
     @article.update_attributes(:body => 'http://vukajlija.com')
     @article.save!
-    assert_equal '<p><a href="http://vukajlija.com" rel="nofollow" target="_blank">http://vukajlija.com</a></p>', @article.body_html
+    assert_equal '<p><a href="http://vukajlija.com" target="_blank">http://vukajlija.com</a></p>', @article.body_html
   end
 end

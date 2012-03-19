@@ -1,18 +1,21 @@
-AutoHtml.add_filter(:youtube).with(:width => 390, :height => 250, :frameborder => 0) do |text, options|
-  regex = /http:\/\/(www.)?youtube\.com\/watch\?v=([A-Za-z0-9._%-]*)(\&[^< ]+)?(\s+)?/
+#AutoHtml.add_filter(:youtube).with(:width => 390, :height => 250, :frameborder => 0) do |text, options|
+AutoHtml.add_filter(:youtube).with(:width => 420, :height => 315, :frameborder => 0, :wmode => nil) do |text, options|
+  regex = /(https?):\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/
   text.gsub(regex) do
-    youtube_id = $2
+    protocol = $1
+    youtube_id = $4
     width = options[:width]
     height = options[:height]
     frameborder = options[:frameborder]
-    query_string = "?wmode=#{options[:wmode]}" if options[:wmode]
+		wmode = options[:wmode]
+		src = "#{protocol}://www.youtube.com/embed/#{youtube_id}"
+		src += "?wmode=#{wmode}" if wmode
     if options[:thumbnail]
       img = %{<img src="http://img.youtube.com/vi/#{youtube_id}/default.jpg" alt="#{youtube_id}"/>}
       icon = %{<span class="youtube-icon"></span>}
       thumbnail = %{<a class="youtube-thumbnail" href="#open_video">#{img}#{icon}</a>}
     end
-    %{#{thumbnail}<iframe class="youtube-player" type="text/html" width="#{width}" height="#{height}" src="http://www.youtube.com/embed/#{youtube_id}#{query_string}" frameborder="#{frameborder}">
-</iframe>}
+    %{#{thumbnail}<iframe width="#{width}" height="#{height}" src="#{src}" frameborder="#{frameborder}" allowfullscreen></iframe>}
   end
 end
 

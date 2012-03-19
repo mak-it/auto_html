@@ -1,6 +1,7 @@
 AutoHtml.add_filter(:vimeo).with(:width => 440, :height => 248, :show_title => false, :show_byline => false, :show_portrait => false) do |text, options|
-  text.gsub(/http:\/\/(www.)?vimeo\.com\/([A-Za-z0-9._%-]*)((\?|#)\S+)?/) do
-    vimeo_id = $2
+  text.gsub(/(https?):\/\/(www.)?vimeo\.com\/([A-Za-z0-9._%-]*)((\?|#)\S+)?/) do
+    protocol = $1
+    vimeo_id = $3
     width  = options[:width]
     height = options[:height]
     show_title      = "title=0"    unless options[:show_title]
@@ -15,6 +16,7 @@ AutoHtml.add_filter(:vimeo).with(:width => 440, :height => 248, :show_title => f
       icon = %{<span class="vimeo-icon"></span>}
       thumbnail = %{<a class="vimeo-thumbnail" href="#open_video">#{img}#{icon}</a>}
     end
-    %{#{thumbnail}<iframe src="http://player.vimeo.com/video/#{vimeo_id}#{query_string}" width="#{width}" height="#{height}" frameborder="#{frameborder}"></iframe>}
+
+    %{#{thumbnail}<iframe src="#{protocol}://player.vimeo.com/video/#{vimeo_id}#{query_string}" width="#{width}" height="#{height}" frameborder="#{frameborder}"></iframe>}
   end
 end

@@ -41,6 +41,11 @@ class VimeoTest < Test::Unit::TestCase
     result = auto_html("http://www.vimeo.com/3300155") { vimeo(:width => 300, :height => 250, :show_portrait => true) }
     assert_equal '<iframe src="http://player.vimeo.com/video/3300155?title=0&byline=0" width="300" height="250" frameborder="0"></iframe>', result
   end
+  
+  def test_transform_url_with_https
+    result = auto_html('https://vimeo.com/3300155') { vimeo }
+    assert_equal '<iframe src="https://player.vimeo.com/video/3300155?title=0&byline=0&portrait=0" width="440" height="248" frameborder="0"></iframe>', result
+  end
 
   def test_transform_with_thumbnail
     result = auto_html('http://vimeo.com/3300155#skirt') { vimeo(:thumbnail => true, :default_thumbnail => "/images/video_thum.png") }

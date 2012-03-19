@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name = 'auto_html'
-  gem.version = '1.3.7'
+  gem.version = '1.5.1'
   gem.date = Date.today.to_s
 
   gem.summary = "Transform URIs to appropriate markup"
@@ -10,8 +10,9 @@ Gem::Specification.new do |gem|
   gem.email    = 'desimic@gmail.com'
   gem.homepage = 'http://github.com/dejan/auto_html'
 
-  gem.add_dependency('RedCloth')
-  
+  gem.add_dependency('rinku', '~> 1.5.0')
+  gem.add_dependency('redcarpet', '~> 2.0.0')
+
   # ensure the gem is built out of versioned files
   gem.files = Dir['Rakefile', '{bin,lib,man,test,spec}/**/*',
                   'README*', 'LICENSE'] & `git ls-files -z`.split("\0")

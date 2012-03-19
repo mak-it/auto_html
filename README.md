@@ -1,8 +1,8 @@
-auto_html
+auto_html [![Build Status](https://secure.travis-ci.org/dejan/auto_html.png)](http://travis-ci.org/dejan/auto_html)
 =========
 
-auto_html is a Rails extension for transforming URLs to appropriate resource (image, link, YouTube, Vimeo video,...). It's the perfect choice if you don't want to bother visitors with rich HTML editor or markup code, but you still want to allow them to embed video, images, links and more on your site, purely by pasting URL. Check out the [live demo](http://auto-html.rors.org).
 
+auto_html is a Rails extension for transforming URLs to appropriate resource (image, link, YouTube, Vimeo video,...). It's the perfect choice if you don't want to bother visitors with rich HTML editor or markup code, but you still want to allow them to embed video, images, links and more on your site, purely by pasting URL. Check out the [live demo](http://auto-html.rors.org).
 
 ## Example usage
 
@@ -72,6 +72,17 @@ AutoHtml uses standard ActiveModel API, which means that you can include AutoHtm
       end
     end
 
+## Rake and Capistrano tasks
+
+AutoHtml has a Rake task for rebuilding cached in DB column values
+Usage: `rake auto_html:rebuild CLASS=[your model]`
+Where `[your model]` is the name of model which values you want to rebuild.
+
+If you want to run it on remote server, just add this to your `deploy.rb`:
+
+    require 'auto_html/capistrano'
+    
+Now you can run `cap auto_html:rebuild CLASS=[your_model]`.
 
 ## Bundled filters
 
@@ -80,31 +91,12 @@ For filter list and options they support check: <http://github.com/dejan/auto_ht
 
 ## Install
 
-### Important note on versions
-
-As from version 1.2.0 auto_html uses Rails' engine for discovering links. There are some bugs with that engine in versions under Rails 2.3.2. so it's recommended you use auto_html 1.1.2 in that case, since internal engine is used in that version.
-
-    for Rails <= 2.3.1 use auto_html 1.1.2<br/>
-    for Rails >= 2.3.2 use the latest auto_html
-
-### As a gem
-
-To enable the library in your Rails 2.1-2.3 project, use the gem configuration method in "config/environment.rb"
-
-    Rails::Initializer.run do |config|
-      config.gem 'auto_html'
-    end
-
-In Rails 3.0 specify the gem in your Gemfile
+Specify the gem in Gemfile of the project
 
     gem "auto_html"
-
-### As a Rails plugin
-
-    script/plugin install git://github.com/dejan/auto_html.git
 
 
 ## Credits
 
 Author: [Dejan Simic](http://github.com/dejan)<br/>
-Contributors: [Claudio Perez Gamayo](http://github.com/crossblaim), [Matt Polito](http://github.com/mattpolito), [Ryan Heneise](http://github.com/mysmallidea), [Caleb Wright](http://github.com/fabrikagency), [Derrick Camerino](https://github.com/robustdj), [Daniel Weinmann](https://github.com/danielweinmann), [Edgars Beigarts](ebeigarts)
+Contributors: https://github.com/dejan/auto_html/contributors
